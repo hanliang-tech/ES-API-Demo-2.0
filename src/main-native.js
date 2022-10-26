@@ -69,8 +69,6 @@ Vue.use(ESGifViewComponent)
 Vue.use(ESAnimationViewComponent)
 Vue.use(ESAnimationView.install)
 
-Vue.use(ESViewComponent)
-
 //播放器
 Vue.use(ESADPlayerViewComponent)
 Vue.use(ESVideoPlayerViewComponent)
@@ -89,8 +87,6 @@ Vue.use(ESPageRootViewComponent)
 Vue.use(ESPageRouterViewComponent)
 
 Vue.use(ESPlayMarkViewComponent)
-
-import ESCanvasComponent from "../packages/ESCanvasComponent/ESCanvasComponent";
 
 Vue.use(ESCanvasComponent)
 
@@ -126,13 +122,13 @@ import "@extscreen/es-player-manager/dist/index.css";
 import {setESApp} from "@extscreen/es-core";
 
 import "@extscreen/es-puzzle-view/dist/index.css";
-import {ESViewComponent} from "../packages/ESViewComponent";
 
 //-------------------------------------------------------
 
 import ESRecyclerViewComponent from './components/ESRecyclerViewComponent/ESRecyclerViewComponent';
 import {install} from "@/components";
 import {ESAnimationView} from "@extscreen/es-animation-view";
+import { ESCanvasComponent } from '@extscreen/es-canvas-component';
 
 
 Vue.use(ESRecyclerViewComponent);

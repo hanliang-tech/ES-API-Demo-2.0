@@ -22,9 +22,8 @@
 import {
   ESPlayerManager,
 } from "@extscreen/es-player-manager";
-import {ESLaunchManager, ESPage} from "@extscreen/es-core";
+import { ESAudioManager, ESLaunchManager, ESPage } from '@extscreen/es-core';
 import {ESVideoPlayer} from "@extscreen/es-video-player";
-import ESAudioManager from "../../../packages/ESCore/module/audio/ESAudioManager";
 import {adProvider} from "./ADProvider";
 
 export default {

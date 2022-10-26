@@ -6,9 +6,8 @@
 
 <script>
 import {
-  ESApplication, ESLaunchManager, ESManager, ESToast,
+  ESApplication, ESAudioManager, ESLaunchManager, ESManager, ESToast,
 } from '@extscreen/es-core';
-import ESAudioManager from "../packages/ESCore/module/audio/ESAudioManager";
 import {ESLog} from "@extscreen/es-log";
 import {ESPlayerInitManager} from "@extscreen/es-player";
 import {RuntimeDeviceManager} from "@extscreen/es-runtime";
