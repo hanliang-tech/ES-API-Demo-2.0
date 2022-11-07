@@ -21,7 +21,7 @@ import { ESLog } from '@extscreen/es-log';
 import {
   ES_PLAYER_STATE_ERROR,
   ES_PLAYER_STATE_PAUSED,
-  ES_PLAYER_STATE_PLAYBACK_COMPLETED,
+  ES_PLAYER_STATE_PLAYBACK_COMPLETED, ES_PLAYER_STATE_PREPARED,
   ES_PLAYER_STATE_STOP
 } from '@extscreen/es-player';
 
@@ -35,6 +35,9 @@ export default {
         ESLog.d(TAG, '------initAudio----->>>');
       }
       ESAudioPlayerModule.init();
+      // let url1 = 'http://qcloudimg-moss.cp47.ott.cibntv.net/channelzero/video/music/absolute_music_set_out.mp3';
+      // let url2 = 'http://qcloudimg-moss.cp47.ott.cibntv.net/channelzero/video/music/500years.mp3';
+      // ESAudioPlayerModule.play(url1);
     },
     playAudio() {
       if (ESLog.isLoggable(ESLog.DEBUG)) {
@@ -74,6 +77,13 @@ export default {
         ESLog.d(TAG, '-----onPlayerStatusChanged----->>>' + JSON.stringify(event));
       }
       switch (event.playerStatus) {
+        case ES_PLAYER_STATE_PREPARED: {
+          if (ESLog.isLoggable(ESLog.DEBUG)) {
+            ESLog.d(TAG, '-----ES_PLAYER_STATE_PAUSED----->>>' + JSON.stringify(event));
+          }
+          ESAudioPlayerModule.start();
+          break;
+        }
         case ES_PLAYER_STATE_PAUSED: {
           if (ESLog.isLoggable(ESLog.DEBUG)) {
             ESLog.d(TAG, '-----ES_PLAYER_STATE_PAUSED----->>>' + JSON.stringify(event));
