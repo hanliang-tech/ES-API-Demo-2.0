@@ -15,29 +15,51 @@
 </template>
 
 <script>
-import {ESLaunchManager, ESPage} from "@extscreen/es-core";
-import {ESAudioPlayerModule} from "@extscreen/es-audio-player";
+import { ESLaunchManager, ESPage } from '@extscreen/es-core';
+import { ESAudioPlayerMixin, ESAudioPlayerModule } from '@extscreen/es-audio-player';
+import { ESLog } from '@extscreen/es-log';
+import {
+  ES_PLAYER_STATE_ERROR,
+  ES_PLAYER_STATE_PAUSED,
+  ES_PLAYER_STATE_PLAYBACK_COMPLETED,
+  ES_PLAYER_STATE_STOP
+} from '@extscreen/es-player';
 
-const TAG = "TEST_MEDIA_PLAYER";
+const TAG = 'TEST_MEDIA_PLAYER';
 export default {
   name: 'AudioPlayerModule',
-  mixins: [ESPage],
+  mixins: [ESPage, ESAudioPlayerMixin],
   methods: {
     initAudio() {
+      if (ESLog.isLoggable(ESLog.DEBUG)) {
+        ESLog.d(TAG, '------initAudio----->>>');
+      }
       ESAudioPlayerModule.init();
     },
     playAudio() {
-      let url1 = "http://qcloudimg-moss.cp47.ott.cibntv.net/channelzero/video/music/absolute_music_set_out.mp3"
-      let url2 = "http://qcloudimg-moss.cp47.ott.cibntv.net/channelzero/video/music/500years.mp3"
+      if (ESLog.isLoggable(ESLog.DEBUG)) {
+        ESLog.d(TAG, '----playAudio----->>>');
+      }
+      let url1 = 'http://qcloudimg-moss.cp47.ott.cibntv.net/channelzero/video/music/absolute_music_set_out.mp3';
+      let url2 = 'http://qcloudimg-moss.cp47.ott.cibntv.net/channelzero/video/music/500years.mp3';
       ESAudioPlayerModule.play(url1);
     },
     startAudio() {
+      if (ESLog.isLoggable(ESLog.DEBUG)) {
+        ESLog.d(TAG, '----startAudio----->>>');
+      }
       ESAudioPlayerModule.start();
     },
     pauseAudio() {
+      if (ESLog.isLoggable(ESLog.DEBUG)) {
+        ESLog.d(TAG, '----pauseAudio----->>>');
+      }
       ESAudioPlayerModule.pause();
     },
     stopAudio() {
+      if (ESLog.isLoggable(ESLog.DEBUG)) {
+        ESLog.d(TAG, '----stopAudio----->>>');
+      }
       ESAudioPlayerModule.stop();
       ESAudioPlayerModule.release();
     },
@@ -46,11 +68,48 @@ export default {
     },
     speedAudio() {
       ESAudioPlayerModule.setPlayRate(2);
+    },//------------------------------------------------
+    onPlayerStatusChanged(event) {
+      if (ESLog.isLoggable(ESLog.DEBUG)) {
+        ESLog.d(TAG, '-----onPlayerStatusChanged----->>>' + JSON.stringify(event));
+      }
+      switch (event.playerStatus) {
+        case ES_PLAYER_STATE_PAUSED: {
+          if (ESLog.isLoggable(ESLog.DEBUG)) {
+            ESLog.d(TAG, '-----ES_PLAYER_STATE_PAUSED----->>>' + JSON.stringify(event));
+          }
+          break;
+        }
+        case ES_PLAYER_STATE_STOP: {
+          if (ESLog.isLoggable(ESLog.DEBUG)) {
+            ESLog.d(TAG, '-----ES_PLAYER_STATE_STOP----->>>' + JSON.stringify(event));
+          }
+          break;
+        }
+        case ES_PLAYER_STATE_PLAYBACK_COMPLETED: {
+          if (ESLog.isLoggable(ESLog.DEBUG)) {
+            ESLog.d(TAG, '-----ES_PLAYER_STATE_PLAYBACK_COMPLETED----->>>' + JSON.stringify(event));
+          }
+          break;
+        }
+        case ES_PLAYER_STATE_ERROR: {
+          if (ESLog.isLoggable(ESLog.DEBUG)) {
+            ESLog.d(TAG, '-----ES_PLAYER_STATE_ERROR----->>>' + JSON.stringify(event));
+          }
+          break;
+        }
+      }
     },
+    onPlayerError(event) {
+      if (ESLog.isLoggable(ESLog.DEBUG)) {
+        ESLog.d(TAG, '-----onPlayerError----->>>' + JSON.stringify(event));
+      }
+    },
+    //------------------------------------------------
     onBackPressed() {
       this.stopAudio();
-      ESLaunchManager.finishESPage()
-    }
+      ESLaunchManager.finishESPage();
+    },
   },
   components: {}
 };
